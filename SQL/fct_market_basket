@@ -1,0 +1,34 @@
+--Cree una tabla para saber cual categoria de productos se venden junto a otra categoria
+CREATE OR REPLACE TABLE `ers-490608.olist_ecommerce.fct_market_basket` AS
+--1er CTE para cambiar los nombres de las categorias de Portugues a Ingles 
+WITH order_categories AS (
+  SELECT DISTINCT
+    oi.order_id,
+    COALESCE(t.string_field_1, p.product_category_name) AS product_category_name
+  FROM
+    `ers-490608.olist_ecommerce.raw_order_items` oi
+  JOIN
+    `ers-490608.olist_ecommerce.olist_products_dataset` p 
+      ON oi.product_id = p.product_id
+  LEFT JOIN
+    `ers-490608.olist_ecommerce.product_name_translation` t  
+      ON p.product_category_name = t.string_field_0
+  WHERE
+    p.product_category_name IS NOT NULL
+)
+-- Se hace la combinacion de la misma tabla, filtrando para que no se repita el grupo a la inversa
+SELECT
+  a.product_category_name AS category_a,
+  b.product_category_name AS category_b,
+  COUNT(DISTINCT a.order_id) AS times_bought_together
+FROM
+  order_categories a
+JOIN
+  order_categories b 
+    ON a.order_id = b.order_id 
+   AND a.product_category_name < b.product_category_name
+GROUP BY
+  category_a,
+  category_b
+ORDER BY
+  times_bought_together DESC;
