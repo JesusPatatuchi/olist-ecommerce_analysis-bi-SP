@@ -1,4 +1,4 @@
-# 🛒 Análisis E-Commerce Olist Brasil: Ventas Ejecutivas, Retención de Cohortes, Segmentación RFM y Market Basket
+# 🛒 E-Commerce Análisis de Olist Brasil: Ventas Ejecutivas, Retención de Cohortes(Por Agrupación), Segmentación RFM y Market Basket.
 
 Proyecto integral de análisis de datos (*End-to-End*) basado en más de **96,000 órdenes de comercio electrónico** de Olist Brasil (2016–2018). Desarrollado mediante modelado y transformación de datos en **Google BigQuery (SQL)** y visualizado a través de un **Dashboard Ejecutivo interactivo de 4 páginas en Looker Studio**.
 
